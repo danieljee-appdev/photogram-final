@@ -11,6 +11,10 @@ class UserAuthenticationController < ApplicationController
 
   def show
     if @current_user != nil
+    url_username = params.fetch("path_id")  
+    matching_usernames = User.where({ :username => url_username})
+    @the_user = matching_usernames.at(0)
+
     render({ :template => "user_authentication/show.html.erb"})
     else
     redirect_to("/user_sign_in")

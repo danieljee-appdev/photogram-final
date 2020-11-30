@@ -28,8 +28,9 @@
   </ul>
 </nav>
 </dl>
+<% if @list_of_likes != nil %>
+<h2>Liked photos (<%= @list_of_likes.count %>)</h2>
 
-<h2>Liked photos (0)</h2>
 
 <table border="1">
   <tr>
@@ -57,30 +58,33 @@
   </tr>
 
 
-<% if @list_of_likes != nil %>
 <% @list_of_likes.each do |a_like| %>
       <tr>
         <td>
-        <%= a_like.photo.image %>
+        <img src="<%= a_like.photo.image %>">
         </td>
 
         <td>
-        <%= a_like.photo.owner_id %>
+        <%= a_like.photo.poster.username %>
 
         <td>
-          <%= time_ago_in_words(a_like.updated_at) %> ago
+        <%= a_like.photo.caption %> 
         </td>
 
         <td>
-          </td>
+        <%= a_like.photo.created_at %>
+        </td>
 
         <td>
-          <a href="/photos/<%= a_like.id %>">
+        <%= a_like.photo.likes_count %>      
+        </td>
+
+        <td>
+          <a href="/photos/<%= a_like.photo.id %>">
             Show details
           </a>
         </td>
       </tr>
       <% end %>
       <% end %>
-
 </table>
