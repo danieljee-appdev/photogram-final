@@ -19,7 +19,7 @@ class LikesController < ApplicationController
 
   def create
     the_like = Like.new
-    the_like.fan_id = params.fetch("query_fan_id")
+    the_like.fan_id = session.fetch(:user_id)
     the_like.photo_id = params.fetch("query_photo_id")
 
     if the_like.valid?
@@ -53,4 +53,11 @@ class LikesController < ApplicationController
 
     redirect_to("/likes", { :notice => "Like deleted successfully."} )
   end
+
+  def user_like
+    matching_likes = @current_user.likes
+    @list_of_likes = matching_likes.order({ :created_at => :desc })
+    render({ :template => "likes/like.html.erb" })
+  end  
+
 end

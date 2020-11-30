@@ -9,6 +9,14 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/index.html.erb"})
   end
 
+  def show
+    if @current_user != nil
+    render({ :template => "user_authentication/show.html.erb"})
+    else
+    redirect_to("/user_sign_in")
+    end
+  end
+
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
   end
@@ -93,5 +101,4 @@ class UserAuthenticationController < ApplicationController
     
     redirect_to("/", { :notice => "User account cancelled" })
   end
- 
 end
